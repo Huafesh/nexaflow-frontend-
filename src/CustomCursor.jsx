@@ -50,7 +50,7 @@ function getCursorMode(target) {
   return 'default';
 }
 
-function CustomCursor() {
+function CustomCursor({ isHidden = false }) {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
   const textRef = useRef(null);
@@ -172,7 +172,7 @@ function CustomCursor() {
     };
   }, [enabled]);
 
-  if (!enabled) {
+  if (!enabled || isHidden) {
     return null;
   }
 

@@ -484,7 +484,7 @@ function App() {
               <Loader2 className="icon-spin loader-spinner" size={32} />
             </div>
           )}
-          <CustomCursor />
+          <CustomCursor isHidden={showLoader} />
           <header className="app-header">
             <div className="nav-container">
               <Link 
