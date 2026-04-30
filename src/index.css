@@ -797,6 +797,7 @@ p {
   background: var(--eyebrow-bg);
   font-size: 14px;
   font-weight: 800;
+  margin-bottom: 8px;
 }
 
 .hero-actions {
