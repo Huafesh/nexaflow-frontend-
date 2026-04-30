@@ -10,6 +10,7 @@ import {
   ClipboardList,
   Home,
   LayoutDashboard,
+  Loader2,
   Menu,
   Moon,
   Package,
