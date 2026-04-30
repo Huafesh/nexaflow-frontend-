@@ -351,6 +351,17 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState(getInitialTheme);
   const isDark = theme === 'dark';
+  
+  const [isAppLoading, setIsAppLoading] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAppLoading(false);
+      setTimeout(() => setShowLoader(false), 500);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -445,6 +456,12 @@ function App() {
     <Router>
       <SmoothScrollProvider>
         <div className="app-shell">
+          {showLoader && (
+            <div className={`app-loader ${!isAppLoading ? 'fade-out' : ''}`}>
+              <img src={nexaFlowMark} alt="NexaFlow" className="loader-logo" />
+              <Loader2 className="icon-spin loader-spinner" size={32} />
+            </div>
+          )}
           <CustomCursor />
           <header className="app-header">
             <div className="nav-container">

@@ -8,6 +8,7 @@ import {
   Send,
   UserRound,
   UserPlus,
+  IdCard,
 } from 'lucide-react';
 import InteractiveSurface from './InteractiveSurface';
 import Reveal from './Reveal';
@@ -17,6 +18,7 @@ const initialForm = {
   nombre: '',
   correo: '',
   empresa: '',
+  dni: '',
 };
 
 function SimpleForm() {
@@ -82,6 +84,10 @@ function SimpleForm() {
 
     if (!formData.empresa.trim()) {
       nextErrors.empresa = 'Ingresa el nombre de tu empresa.';
+    }
+
+    if (formData.dni.trim() && !/^\d{8}$/.test(formData.dni.trim())) {
+      nextErrors.dni = 'El DNI debe tener 8 dígitos numéricos.';
     }
 
     return nextErrors;
@@ -199,6 +205,24 @@ function SimpleForm() {
               />
             </div>
             {errors.empresa && <span className="field-error">{errors.empresa}</span>}
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="dni">DNI (Opcional)</label>
+            <div className={`field-control ${errors.dni ? 'has-error' : ''}`}>
+              <IdCard size={18} aria-hidden="true" />
+              <input
+                id="dni"
+                type="text"
+                name="dni"
+                value={formData.dni}
+                onChange={handleChange}
+                placeholder="12345678"
+                disabled={isSubmitting}
+                maxLength="8"
+              />
+            </div>
+            {errors.dni && <span className="field-error">{errors.dni}</span>}
           </div>
 
           <button className="btn btn-primary form-submit" type="submit" disabled={isSubmitting}>
