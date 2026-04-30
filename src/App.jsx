@@ -365,6 +365,21 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (showLoader) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none'; // Previene scroll en móviles
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [showLoader]);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('nexaflow-theme', theme);
 
