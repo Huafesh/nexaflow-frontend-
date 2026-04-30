@@ -1733,6 +1733,12 @@ p {
 .field-control svg {
   flex: 0 0 auto;
   color: var(--muted);
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+.field-control:focus-within svg {
+  color: var(--teal);
+  filter: drop-shadow(0 0 6px var(--teal));
 }
 
 .field-control.has-error {
