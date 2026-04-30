@@ -63,7 +63,13 @@ function SimpleForm() {
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
+    
+    // Solo permitir números en el DNI
+    if (name === 'dni') {
+      value = value.replace(/\D/g, '');
+    }
+
     setFormData((currentData) => ({ ...currentData, [name]: value }));
     setErrors((currentErrors) => ({ ...currentErrors, [name]: '' }));
     setMessage(null);
@@ -220,6 +226,8 @@ function SimpleForm() {
                 placeholder="12345678"
                 disabled={isSubmitting}
                 maxLength="8"
+                inputMode="numeric"
+                pattern="[0-9]*"
               />
             </div>
             {errors.dni && <span className="field-error">{errors.dni}</span>}
