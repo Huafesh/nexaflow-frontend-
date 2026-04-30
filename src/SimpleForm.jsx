@@ -233,6 +233,25 @@ function SimpleForm() {
             {errors.dni && <span className="field-error">{errors.dni}</span>}
           </div>
 
+          {message && (
+            <div ref={messageRef} style={{ marginBottom: '20px' }}>
+              <InteractiveSurface as="div" className={`form-message ${message.type} ${isExiting ? 'is-exiting' : ''}`} variant="tile">
+                {message.type === 'success' ? (
+                  <CheckCircle2 size={20} aria-hidden="true" />
+                ) : (
+                  <AlertCircle size={20} aria-hidden="true" />
+                )}
+                <Typewriter 
+                  text={message.text} 
+                  speed={30} 
+                  delay={100} 
+                  isErasing={isErasing} 
+                  onEraseComplete={handleEraseComplete} 
+                />
+              </InteractiveSurface>
+            </div>
+          )}
+
           <button className="btn btn-primary form-submit" type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
@@ -246,27 +265,6 @@ function SimpleForm() {
               </>
             )}
           </button>
-
-          {message && (
-            <div ref={messageRef}>
-              <Reveal delay={0}>
-                <InteractiveSurface as="div" className={`form-message ${message.type} ${isExiting ? 'is-exiting' : ''}`} variant="tile">
-                  {message.type === 'success' ? (
-                    <CheckCircle2 size={20} aria-hidden="true" />
-                  ) : (
-                    <AlertCircle size={20} aria-hidden="true" />
-                  )}
-                  <Typewriter 
-                    text={message.text} 
-                    speed={30} 
-                    delay={400} 
-                    isErasing={isErasing} 
-                    onEraseComplete={handleEraseComplete} 
-                  />
-                </InteractiveSurface>
-              </Reveal>
-            </div>
-          )}
           </InteractiveSurface>
         </Reveal>
       </div>
