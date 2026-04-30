@@ -1008,45 +1008,57 @@ p {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(
-    to top,
-    rgba(45, 212, 191, 0.2) 0%,
-    rgba(45, 212, 191, 0.1) 70%,
-    transparent 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-  transform: translateY(100%);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-  will-change: transform, opacity;
-  opacity: 0;
   overflow: hidden;
   border-radius: inherit;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .interactive-surface.is-hovered .surface-wave {
-  transform: translateY(0);
   opacity: 1;
 }
 
+.surface-wave::before,
 .surface-wave::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 300%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%232DD4BF' fill-opacity='0.15'%3E%3C/path%3E%3C/svg%3E");
-  background-size: 50% 100%;
-  background-repeat: repeat-x;
-  animation: tide-drift 8s linear infinite;
-  filter: blur(2px);
-  transform-origin: top;
+  top: 100%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  transition: top 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, top;
 }
 
-@keyframes tide-drift {
-  from { transform: translateX(0); }
-  to { transform: translateX(33.33%); }
+/* Ola delantera */
+.surface-wave::before {
+  background: rgba(45, 212, 191, 0.22);
+  border-radius: 42%;
+  animation: liquid-wave 5s linear infinite;
+  z-index: 2;
+}
+
+/* Ola trasera (se mueve a diferente velocidad y dirección) */
+.surface-wave::after {
+  background: rgba(45, 212, 191, 0.12);
+  border-radius: 45%;
+  animation: liquid-wave 7s linear infinite reverse;
+  z-index: 1;
+}
+
+.interactive-surface.is-hovered .surface-wave::before {
+  top: 35%;
+}
+
+.interactive-surface.is-hovered .surface-wave::after {
+  top: 28%;
+}
+
+@keyframes liquid-wave {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .preview-panel {
